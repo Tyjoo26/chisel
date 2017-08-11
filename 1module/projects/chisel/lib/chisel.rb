@@ -11,6 +11,7 @@ class Chisel
   def format
     @input.map do |block|
       block = body_format(block)
+      block = emphasis_formatting(block)
     end
   end
 
@@ -26,20 +27,44 @@ class Chisel
     "<p>" + block + "</p>"
   end
 
-  def header_convert
+  def header_convert(block)
     hash_count = block.count("#")
+    hash_string = hash_count.to_s
+    "<h#{hash_string}>" + block.delete("#") + "</h#{hash_string}>"
 
   end
 
-  def emphasis_formatting
-
+  def emphasis(block)
+    if block.include?("**")
+      strong_format(block)
+    else block.include?("*")
+      emphasize(block)
+    # elsif block.include?("*") &&
+    end
   end
 
-  def strong_format
-
+  def strong_format(block)
+    block.map do |word|
+      if word.include?("**")
+        word.gsub("**", "<strong>")
+      else
+        word
+      end
+    end
   end
 
-  def emphasize
+  # def start_emphasize(block)
+  #   block.map do |word|
+  #     if word.include?("*")
+  #       word.gsub("*", "<em>")
+  #     else
+  #       word
+  #     end
+  #   end
+  # end
+
+  def mid_emphasize(block)
+    count = 0
 
   end
 

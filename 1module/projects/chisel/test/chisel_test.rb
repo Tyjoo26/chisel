@@ -25,9 +25,38 @@ class HeaderTest < MiniTest::Test
   end
 
   def test_paragraph_convert
-    chisel = Chisel.new("This is the first line of the paragraph.")
-    chisel.body_format("This is the first line of the paragraph.")
+    chisel   = Chisel.new("This is the first line of the paragraph.")
 
-    assert_equal "<p>This is the first line of the paragraph</p>", chisel.paragraph_convert
+    expected = "<p>This is the first line of the paragraph</p>"
+	  block    = "This is the first line of the paragraph"
+    assert_equal expected, chisel.paragraph_convert(block)
   end
+
+  def test_header_convert_two
+    chisel   = Chisel.new("## Chapter 1: The Beginning")
+
+    expected = "<h2> Chapter 1: The Beginning</h2>"
+    block    = "## Chapter 1: The Beginning"
+
+    assert_equal expected, chisel.header_convert(block)
+  end
+
+  def test_header_convert_three
+    chisel   = Chisel.new("## Chapter 1: The Beginning")
+
+    expected = "<h3> Chapter 1: The Beginning</h3>"
+    block    = "### Chapter 1: The Beginning"
+
+    assert_equal expected, chisel.header_convert(block)
+  end
+
+  def test_strong_format
+    chisel   = Chisel.new("My emphasized and **stronged** text is awesome.")
+
+    expected = "<p>My <em>emphasized and **stronged** text</em> is awesome.</p>"
+    block = "My emphasized and **stronged** text is awesome."
+
+    assert_equal expected, chisel.emphasis(block)
+  end
+
 end
