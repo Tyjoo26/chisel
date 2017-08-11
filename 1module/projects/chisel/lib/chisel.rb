@@ -10,8 +10,8 @@ class Chisel
 
   def format
     @input.map do |block|
-      block = body_format(block)
-      block = emphasis_formatting(block)
+      body_formatted = body_format(block)
+      emphasis_formatted = emphasis_formatting(body_formatted)
     end
   end
 
@@ -39,7 +39,6 @@ class Chisel
       strong_format(block)
     else block.include?("*")
       emphasize(block)
-    # elsif block.include?("*") &&
     end
   end
 
@@ -53,15 +52,15 @@ class Chisel
     end
   end
 
-  # def start_emphasize(block)
-  #   block.map do |word|
-  #     if word.include?("*")
-  #       word.gsub("*", "<em>")
-  #     else
-  #       word
-  #     end
-  #   end
-  # end
+  def start_emphasize(block)
+    block.map do |word|
+      if word.include?("*")
+        word.gsub("*", "<em>")
+      else
+        word
+      end
+    end
+  end
 
   def mid_emphasize(block)
     count = 0

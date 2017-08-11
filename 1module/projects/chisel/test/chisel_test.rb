@@ -51,7 +51,7 @@ class HeaderTest < MiniTest::Test
   end
 
   def test_strong_format
-    chisel   = Chisel.new("My emphasized and **stronged** text is awesome.")
+    chisel   = Chisel.new("My *emphasized and **stronged** text* is awesome.")
 
     expected = "<p>My <em>emphasized and **stronged** text</em> is awesome.</p>"
     block = "My emphasized and **stronged** text is awesome."
